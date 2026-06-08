@@ -1,0 +1,249 @@
+{
+  "dataset": "coorte_simulada_slz",
+  "descricao": "Banco simulado para demonstrar o pipeline de databook (coortes RPS: São Luís, Pelotas, Ribeirão Preto). Dados sintéticos; não correspondem a indivíduos reais.",
+  "n": 2000,
+  "seed": 42,
+  "coortes": [1997, 2013],
+  "eixos": {
+    "identificacao": "Identificação",
+    "sociodemografico": "Sociodemográficas",
+    "antropometria": "Antropometria materna",
+    "pre_natal": "Pré-natal",
+    "comorbidades": "Comorbidades gestacionais",
+    "parto": "Parto",
+    "desfechos_neonatais": "Desfechos neonatais"
+  },
+  "variaveis": [
+    {
+      "nome": "id",
+      "rotulo": "Identificador único do registro",
+      "eixo": "identificacao",
+      "tipo": "identificador"
+    },
+    {
+      "nome": "ano",
+      "rotulo": "Ano da coorte",
+      "eixo": "identificacao",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1997, "rotulo": "Coorte de 1997"},
+        {"codigo": 2013, "rotulo": "Coorte de 2013"}
+      ]
+    },
+    {
+      "nome": "cidade",
+      "rotulo": "Centro/cidade da coorte",
+      "eixo": "identificacao",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1, "rotulo_origem": "SLZ", "rotulo": "São Luís (MA)"},
+        {"codigo": 2, "rotulo_origem": "PEL", "rotulo": "Pelotas (RS)"},
+        {"codigo": 3, "rotulo_origem": "RP", "rotulo": "Ribeirão Preto (SP)"}
+      ]
+    },
+    {
+      "nome": "maternidade",
+      "rotulo": "Maternidade de nascimento",
+      "eixo": "identificacao",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1, "rotulo_origem": "A1", "rotulo": "A1 — São Luís"},
+        {"codigo": 2, "rotulo_origem": "A2", "rotulo": "A2 — São Luís"},
+        {"codigo": 3, "rotulo_origem": "A3", "rotulo": "A3 — São Luís"},
+        {"codigo": 4, "rotulo_origem": "B1", "rotulo": "B1 — Pelotas"},
+        {"codigo": 5, "rotulo_origem": "B2", "rotulo": "B2 — Pelotas"},
+        {"codigo": 6, "rotulo_origem": "B3", "rotulo": "B3 — Pelotas"},
+        {"codigo": 7, "rotulo_origem": "C1", "rotulo": "C1 — Ribeirão Preto"},
+        {"codigo": 8, "rotulo_origem": "C2", "rotulo": "C2 — Ribeirão Preto"},
+        {"codigo": 9, "rotulo_origem": "C3", "rotulo": "C3 — Ribeirão Preto"}
+      ]
+    },
+    {
+      "nome": "idade_mae",
+      "rotulo": "Idade materna",
+      "eixo": "sociodemografico",
+      "tipo": "continua",
+      "unidade": "anos",
+      "decimais": 0
+    },
+    {
+      "nome": "idade_mae_categorica",
+      "rotulo": "Idade materna (categorias)",
+      "eixo": "sociodemografico",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1, "rotulo_origem": "18-20", "rotulo": "18–20 anos"},
+        {"codigo": 2, "rotulo_origem": "21-30", "rotulo": "21–30 anos"},
+        {"codigo": 3, "rotulo_origem": "31-40", "rotulo": "31–40 anos"},
+        {"codigo": 4, "rotulo_origem": ">40", "rotulo": "> 40 anos"}
+      ]
+    },
+    {
+      "nome": "renda_mae_reais",
+      "rotulo": "Renda materna",
+      "eixo": "sociodemografico",
+      "tipo": "continua",
+      "unidade": "R$",
+      "decimais": 2
+    },
+    {
+      "nome": "renda_mae_quintis_sm",
+      "rotulo": "Renda materna (faixas em salários mínimos)",
+      "eixo": "sociodemografico",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1, "rotulo_origem": "< 1 SM", "rotulo": "Menos de 1 SM"},
+        {"codigo": 2, "rotulo_origem": "1-2 SM", "rotulo": "1 a 2 SM"},
+        {"codigo": 3, "rotulo_origem": "2-3 SM", "rotulo": "2 a 3 SM"},
+        {"codigo": 4, "rotulo_origem": "3-5 SM", "rotulo": "3 a 5 SM"},
+        {"codigo": 5, "rotulo_origem": "> 5 SM", "rotulo": "Mais de 5 SM"}
+      ]
+    },
+    {
+      "nome": "mae_solteira",
+      "rotulo": "Mãe solteira",
+      "eixo": "sociodemografico",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "peso_mae_pre_gestacao_kg",
+      "rotulo": "Peso materno pré-gestacional",
+      "eixo": "antropometria",
+      "tipo": "continua",
+      "unidade": "kg",
+      "decimais": 1
+    },
+    {
+      "nome": "peso_mae_pos_gestacao_kg",
+      "rotulo": "Peso materno pós-gestacional",
+      "eixo": "antropometria",
+      "tipo": "continua",
+      "unidade": "kg",
+      "decimais": 1
+    },
+    {
+      "nome": "peso_mae_categoria",
+      "rotulo": "Categoria de peso materno pré-gestacional",
+      "eixo": "antropometria",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1, "rotulo": "Baixo peso"},
+        {"codigo": 2, "rotulo": "Normal"},
+        {"codigo": 3, "rotulo": "Sobrepeso"},
+        {"codigo": 4, "rotulo": "Obesidade"}
+      ]
+    },
+    {
+      "nome": "prenatal_6_consultas_12sem",
+      "rotulo": "Pré-natal adequado (>= 6 consultas, início <= 12 sem)",
+      "eixo": "pre_natal",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "diabetes_gestacional",
+      "rotulo": "Diabetes gestacional",
+      "eixo": "comorbidades",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "hipertensao_gestacional",
+      "rotulo": "Hipertensão gestacional",
+      "eixo": "comorbidades",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "pre_eclampsia",
+      "rotulo": "Pré-eclâmpsia",
+      "eixo": "comorbidades",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "eclampsia",
+      "rotulo": "Eclâmpsia",
+      "eixo": "comorbidades",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "gravidade_parto",
+      "rotulo": "Gravidade do parto",
+      "eixo": "parto",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1, "rotulo_origem": "Baixo risco", "rotulo": "Baixo risco"},
+        {"codigo": 2, "rotulo_origem": "Alto risco", "rotulo": "Alto risco"}
+      ]
+    },
+    {
+      "nome": "tipo_parto",
+      "rotulo": "Tipo de parto",
+      "eixo": "parto",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 1, "rotulo": "Normal"},
+        {"codigo": 2, "rotulo": "Cesárea"}
+      ]
+    },
+    {
+      "nome": "peso_ao_nascer_kg",
+      "rotulo": "Peso ao nascer",
+      "eixo": "desfechos_neonatais",
+      "tipo": "continua",
+      "unidade": "kg",
+      "decimais": 2
+    },
+    {
+      "nome": "baixo_peso_ao_nascer",
+      "rotulo": "Baixo peso ao nascer (< 2,5 kg)",
+      "eixo": "desfechos_neonatais",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "complicacoes_neonatais",
+      "rotulo": "Complicações neonatais",
+      "eixo": "desfechos_neonatais",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    },
+    {
+      "nome": "obito_neonatal_precoce",
+      "rotulo": "Óbito neonatal precoce (< 7 dias)",
+      "eixo": "desfechos_neonatais",
+      "tipo": "categorica",
+      "valores": [
+        {"codigo": 0, "rotulo": "Não"},
+        {"codigo": 1, "rotulo": "Sim"}
+      ]
+    }
+  ]
+}
