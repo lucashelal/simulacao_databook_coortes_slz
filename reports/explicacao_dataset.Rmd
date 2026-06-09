@@ -24,9 +24,9 @@ Este documento detalha a arquitetura de dados e as dependências probabilística
 
 O script manipula a geração de dados para criar cadeias de dependência estocástica e restrições biológicas. O dataset final é gerado em duas versões:
 
-> Versão Rotulada: Preserva as strings amigáveis para leitura e análise direta ("Sim", "Não", "Cesárea").
+- Versão Rotulada: Preserva as strings amigáveis para leitura e análise direta ("Sim", "Não", "Cesárea").
 
-> Versão Codificada: Converte dinamicamente textos em códigos numéricos pareados, utilizando um dicionário JSON canônico que serve como infraestrutura para a geração de um databook automático.
+- Versão Codificada: Converte dinamicamente textos em códigos numéricos pareados, utilizando um dicionário JSON canônico que serve como infraestrutura para a geração de um databook automático.
 
 ### **A intenção primária deste dataset é servir como base para um pipeline de geração de databooks automatizados para todas as variáveis, com estatísticas sumárias e visualizações pré-definidas, disponíveis neste código**
 
@@ -36,13 +36,13 @@ Este bloco inicial garante a reprodutibilidade da simulação e define a janela 
 
 Variáveis: 
 
-> n_total: total de observações do banco.
+- n_total: total de observações do banco.
 
-> n_por_ano: número de observações por ano, garantindo equilíbrio temporal.
+- n_por_ano: número de observações por ano, garantindo equilíbrio temporal.
 
-> anos: vetor de anos para amostragem.
+- anos: vetor de anos para amostragem.
 
-> cidades: vetor de siglas dos municípios, representando os centros de coleta de dados.
+- cidades: vetor de siglas dos municípios, representando os centros de coleta de dados.
 
 ```{r}
 set.seed(42)
@@ -65,23 +65,23 @@ Nesta seção, o contexto econômico dita as vulnerabilidades sociais da gestant
 
 Variáveis:
 
-> df: banco de dados inicial
+- df: banco de dados inicial
 
-> id: identificador único para cada observação
+- id: identificador único para cada observação
 
-> maternidade: número de maternidades amostradas por cidade (A1, A2, A3, B1, B2, B3, C1, C2, C3)
+- maternidade: número de maternidades amostradas por cidade (A1, A2, A3, B1, B2, B3, C1, C2, C3)
 
-> idade_mae: idade da mãe simulada com distribuição normal, limitada em entre 18 e 45 anos, com média de 28 anos e desvio padrão de 6 anos
+- idade_mae: idade da mãe simulada com distribuição normal, limitada em entre 18 e 45 anos, com média de 28 anos e desvio padrão de 6 anos
 
-> idade_mae_categorica: idade da mãe simulada com apresentação por categorias de idade baseadas em pontos de corte de idade
+- idade_mae_categorica: idade da mãe simulada com apresentação por categorias de idade baseadas em pontos de corte de idade
 
-> renda_mae_reais: renda da mãe simulada com distribuição normal logarítmica, por conta da assimetria típica de dados de renda, com parâmetros ajustados para refletir o contexto econômico de cada ano
+- renda_mae_reais: renda da mãe simulada com distribuição normal logarítmica, por conta da assimetria típica de dados de renda, com parâmetros ajustados para refletir o contexto econômico de cada ano
 
-> salario_minimo: salário mínimo vigente em cada ano, utilizado como referência para categorizar 
+- salario_minimo: salário mínimo vigente em cada ano, utilizado como referência para categorizar 
 
-> renda_mae_quintis_sm: categorização da renda da mãe em quintis de salário mínimo, refletindo a distribuição socioeconômica
+- renda_mae_quintis_sm: categorização da renda da mãe em quintis de salário mínimo, refletindo a distribuição socioeconômica
 
-> mae_solteira: variável binária indicando se a mãe é solteira, com probabilidade condicionada à renda, simulando a maior vulnerabilidade social associada à baixa renda
+- mae_solteira: variável binária indicando se a mãe é solteira, com probabilidade condicionada à renda, simulando a maior vulnerabilidade social associada à baixa renda
 
 ```{r}
 # ---- 2. Estrutura base + sociodemográficas ----------------------------------
@@ -130,9 +130,9 @@ Mapeia a composição corporal da gestante, aplicando uma correlação linear fo
 
 Variáveis: 
 
-> peso_mae_pre_gestacao_kg: peso da mãe antes da gestação, simulado com distribuição normal, limitada entre 45 kg e 120 kg, com média de 65 kg e desvio padrão de 12 kg. Variável contínua
+- peso_mae_pre_gestacao_kg: peso da mãe antes da gestação, simulado com distribuição normal, limitada entre 45 kg e 120 kg, com média de 65 kg e desvio padrão de 12 kg. Variável contínua
 
-> peso_mae_categoria: categorização do peso pré-gestacional da mãe em "Baixo peso", "Normal", "Sobrepeso" e "Obesidade", com base em pontos de corte típicos de IMC para gestantes. Variável categórica
+- peso_mae_categoria: categorização do peso pré-gestacional da mãe em "Baixo peso", "Normal", "Sobrepeso" e "Obesidade", com base em pontos de corte típicos de IMC para gestantes. Variável categórica
 
 ```{r}
 # ---- 3. Antropometria materna -----------------------------------------------
@@ -159,9 +159,9 @@ Avalia o acesso ao serviço de saúde pública com base na interação entre eco
 
 Variáveis:
 
-> prob_prenatal: probabilidade de realizar o pré-natal completo, calculada com base em regras condicionais que levam em conta o ano da gestação e a renda da mãe em relação ao salário mínimo vigente. Variável intermediária utilizada para simular a variável final. Pré natal completo = pelo menos 6 consultas de pré natal nas primeiras 12 semanas de gestação
+- prob_prenatal: probabilidade de realizar o pré-natal completo, calculada com base em regras condicionais que levam em conta o ano da gestação e a renda da mãe em relação ao salário mínimo vigente. Variável intermediária utilizada para simular a variável final. Pré natal completo = pelo menos 6 consultas de pré natal nas primeiras 12 semanas de gestação
 
-> prenatal_6_consultas_12sem: variável binária indicando se a mãe realizou o pré natal completo
+- prenatal_6_consultas_12sem: variável binária indicando se a mãe realizou o pré natal completo
 
 
 ```{r}
@@ -394,4 +394,364 @@ write.csv(df_codificado, "data/simulado/coorte_codificada.csv",
 ```
 
 ## Exportação dos Dados para Databook Automatizado de TODAS AS VARIÁVEIS 
+
+```{r}
+# =============================================================================
+# 03_gera_databook.R
+# Gera um databook organizado de TODAS as variáveis, automaticamente.
+#
+# O renderizador databook_html() produz um .html autocontido (CSS embutido).
+# Escrito em R base; só precisa de jsonlite para LER o dicionário.
+#
+# Uso:
+#   source("R/03_gera_databook.R")   # define as funções (não executa nada)
+#   Rscript R/03_gera_databook.R     # executa o bloco final e gera o HTML
+# =============================================================================
+
+# ---- Utilitários ------------------------------------------------------------
+escapar_html <- function(x) { ## escapa caracteres especiais para evitar problemas de formatação no HTML
+  x <- as.character(x)
+  x <- gsub("&", "&amp;", x, fixed = TRUE)
+  x <- gsub("<", "&lt;",  x, fixed = TRUE)
+  x <- gsub(">", "&gt;",  x, fixed = TRUE)
+  x
+}
+
+fmt_num <- function(x, dec = 2) { ## formata números com separador de milhar e vírgula decimal, além de limitar as casas decimais
+  formatC(x, format = "f", digits = dec,
+          big.mark = ".", decimal.mark = ",")
+}
+
+fmt_pct <- function(x) { ## formata porcentagens com uma casa decimal e vírgula como separador decimal, além de adicionar o símbolo de porcentagem
+  paste0(formatC(x, format = "f", digits = 1, decimal.mark = ","), "%")
+}
+```
+
+```{r}
+
+# ---- Resumos por tipo -------------------------------------------------------
+resumo_continua <- function(x, dec = 2) {
+  n_total <- length(x) ## total de observações, incluindo NA
+  n_na    <- sum(is.na(x)) ## número de NA
+  v       <- x[!is.na(x)] ## vetor sem os NA para calcular as estatísticas descritivas
+  stats <- data.frame( ## data.frame com as estatísticas descritivas formatadas
+    Medida = c("N válido", "Missing", "Média", "Desvio-padrão",
+               "Mínimo", "P25", "Mediana", "P75", "Máximo"),
+    Valor  = c( ## valores formatados para cada medida, utilizando as funções auxiliares para formatação
+      as.character(length(v)),
+      paste0(n_na, " (", fmt_pct(100 * n_na / n_total), ")"),
+      fmt_num(mean(v), dec), 
+      fmt_num(stats::sd(v), dec),
+      fmt_num(min(v), dec),
+      fmt_num(stats::quantile(v, 0.25), dec),
+      fmt_num(stats::median(v), dec),
+      fmt_num(stats::quantile(v, 0.75), dec),
+      fmt_num(max(v), dec)
+    ),
+    stringsAsFactors = FALSE
+  )
+  list(tipo = "continua", stats = stats, n_na = n_na, n_total = n_total)
+}
+
+resumo_categorica <- function(x, valores = NULL) { ## resumo para variáveis categóricas, calculando frequências e porcentagens para cada categoria, além de contar os NA
+  n_total <- length(x)
+  n_na    <- sum(is.na(x))
+  n_valid <- n_total - n_na
+  
+  if (!is.null(valores)) {
+    cods <- vapply(valores, function(z) as.character(z$codigo), character(1))
+    labs <- vapply(valores, function(z) as.character(z$rotulo),  character(1))
+  } else {
+    cods <- sort(unique(as.character(x[!is.na(x)])))
+    labs <- cods
+  }
+  
+  tab <- table(as.character(x))           # NA já fica de fora
+  n   <- as.integer(tab[cods])
+  n[is.na(n)] <- 0L
+  pct <- if (n_valid > 0) 100 * n / n_valid else rep(0, length(n))
+  
+  freq <- data.frame( ## data.frame com as frequências e porcentagens formatadas para cada categoria, utilizando as funções auxiliares para formatação
+    Codigo = cods,
+    Rotulo = labs,
+    n      = n,
+    pct    = vapply(pct, fmt_pct, character(1)),
+    stringsAsFactors = FALSE
+  )
+  list(tipo = "categorica", freq = freq, n_na = n_na, n_total = n_total)
+}
+
+resumo_identificador <- function(x) { ## resumo para variáveis identificadoras, contando o número de valores distintos e os NA
+  list(tipo = "identificador",
+       n_distinct = length(unique(x[!is.na(x)])),
+       n_na = sum(is.na(x)), n_total = length(x))
+}
+
+```
+
+```{r}
+# Dispatcher: decide o resumo a partir do meta (JSON) ou por inferência.
+resumir_variavel <- function(x, meta = NULL) { ## função principal que decide qual resumo aplicar a uma variável, utilizando os metadados do JSON se disponíveis, ou inferindo o tipo da variável caso os metadados estejam ausentes
+  if (!is.null(meta) && !is.null(meta$tipo)) {
+    if (meta$tipo == "continua") {
+      dec <- if (!is.null(meta$decimais)) meta$decimais else 2
+      return(resumo_continua(x, dec))
+    } else if (meta$tipo == "categorica") {
+      return(resumo_categorica(x, meta$valores))
+    } else {
+      return(resumo_identificador(x))
+    }
+  }
+  # ---- modo simplório: inferir o tipo ----
+  n_distinct <- length(unique(x[!is.na(x)])) ## conta o número de valores distintos, ignorando os NA, para ajudar a inferir o tipo da variável
+  if (is.numeric(x) && n_distinct == length(x)) {
+    resumo_identificador(x)
+  } else if (is.numeric(x) && n_distinct > 12) {
+    resumo_continua(x, 2)
+  } else {
+    resumo_categorica(x, NULL)
+  }
+}
+
+# ---- Montagem da estrutura do databook --------------------------------------
+construir_databook <- function(df, dic = NULL) { ## constrói a estrutura do databook a partir do data.frame e do dicionário JSON, organizando as variáveis em seções de acordo com os eixos definidos no dicionário, ou colocando todas as variáveis em uma seção única caso o dicionário esteja ausente
+  secoes <- list()
+  
+  if (!is.null(dic)) {
+    eixos <- dic$eixos
+    for (e in names(eixos)) {
+      vs <- Filter(function(v) identical(v$eixo, e), dic$variaveis)
+      if (length(vs) == 0) next
+      conteudo <- lapply(vs, function(v) {
+        list(meta = v, resumo = resumir_variavel(df[[v$nome]], v))
+      })
+      secoes[[length(secoes) + 1]] <-
+        list(titulo = eixos[[e]], chave = e, vars = conteudo)
+    }
+    meta_geral <- list(dataset = dic$dataset, n = nrow(df),
+                       seed = dic$seed, descricao = dic$descricao)
+  } else { ## se o dicionário JSON não estiver disponível, coloca todas as variáveis em uma seção única, utilizando a função de resumo para inferir o tipo de cada variável
+    conteudo <- lapply(names(df), function(nm) {
+      r <- resumir_variavel(df[[nm]], NULL)
+      list(meta = list(nome = nm, rotulo = nm, tipo = r$tipo), resumo = r)
+    })
+    secoes[[1]] <- list(titulo = "Variáveis", chave = "todas",
+                        vars = conteudo)
+    meta_geral <- list(dataset = "df", n = nrow(df), seed = NA,
+                       descricao = "Databook gerado direto do data.frame.")
+  }
+  list(meta = meta_geral, secoes = secoes) ## retorna uma lista com os metadados gerais do dataset e as seções organizadas, cada uma contendo o título, a chave e as variáveis com seus respectivos resumos
+}
+```
+
+```{r}
+
+# ---- Renderização HTML (CSS embutido) ---------------------------------------
+## função que renderiza o databook em HTML, utilizando o CSS embutido para estilização, e organizando o conteúdo de acordo com a estrutura definida na função construir_databook
+.css_databook <- "
+:root{
+  --tinta:#1f2933; --suave:#52606d; --linha:#e4e7eb; --fundo:#ffffff;
+  --acento:#2b6cb0; --acento2:#2f855a; --acento3:#975a16;
+  --zebra:#f7f9fb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#eef1f4;color:var(--tinta);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,
+  Arial,sans-serif;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px}
+header.db{background:var(--fundo);border:1px solid var(--linha);
+  border-radius:12px;padding:26px 28px;margin-bottom:22px}
+header.db h1{margin:0 0 6px;font-size:1.5rem}
+header.db .sub{color:var(--suave);font-size:.92rem}
+.meta-grid{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px;
+  font-size:.85rem;color:var(--suave)}
+.meta-grid b{color:var(--tinta)}
+.legenda{margin-top:14px;padding:10px 14px;background:var(--zebra);
+  border-left:3px solid var(--acento);border-radius:6px;
+  font-size:.82rem;color:var(--suave)}
+nav.toc{background:var(--fundo);border:1px solid var(--linha);
+  border-radius:12px;padding:18px 22px;margin-bottom:22px}
+nav.toc h2{margin:0 0 10px;font-size:.8rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--suave)}
+nav.toc a{display:inline-block;margin:3px 14px 3px 0;
+  color:var(--acento);text-decoration:none;font-size:.9rem}
+nav.toc a:hover{text-decoration:underline}
+section.eixo{margin-bottom:30px}
+section.eixo > h2{font-size:1.15rem;margin:0 0 4px;
+  padding-bottom:6px;border-bottom:2px solid var(--linha)}
+.var{background:var(--fundo);border:1px solid var(--linha);
+  border-radius:10px;padding:16px 18px;margin-top:14px}
+.varhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.vname{font-family:'SFMono-Regular',Consolas,Menlo,monospace;
+  font-size:.95rem;font-weight:600}
+.vlabel{color:var(--suave);font-size:.9rem;margin:2px 0 10px}
+.vunit{color:var(--suave);font-size:.8rem;font-style:italic}
+.badge{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:20px;
+  letter-spacing:.03em}
+.b-continua{background:#e6f0fa;color:var(--acento)}
+.b-categorica{background:#e6f4ec;color:var(--acento2)}
+.b-identificador{background:#faf0e0;color:var(--acento3)}
+.b-miss{background:#fdecec;color:#9b2c2c;margin-left:auto}
+table{border-collapse:collapse;width:100%;font-size:.86rem;margin-top:6px}
+th,td{padding:6px 10px;border-bottom:1px solid var(--linha);text-align:left}
+thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--suave);border-bottom:1.5px solid var(--linha)}
+tbody tr:nth-child(even){background:var(--zebra)}
+td.cod{font-family:'SFMono-Regular',Consolas,Menlo,monospace;
+  color:var(--acento)}
+td.num,th.num{text-align:right;
+  font-variant-numeric:tabular-nums}
+footer{color:var(--suave);font-size:.78rem;text-align:center;margin-top:30px}
+"
+
+## função que renderiza a tabela de estatísticas descritivas para variáveis contínuas em HTML, formatando cada linha da tabela com as medidas e valores correspondentes, e utilizando as funções auxiliares para escapar caracteres especiais e formatar os números
+.tabela_continua_html <- function(stats) {
+  linhas <- vapply(seq_len(nrow(stats)), function(i) {
+    paste0("<tr><td>", escapar_html(stats$Medida[i]),
+           "</td><td class='num'>", escapar_html(stats$Valor[i]),
+           "</td></tr>")
+  }, character(1))
+  paste0("<table><thead><tr><th>Medida</th><th class='num'>Valor</th>",
+         "</tr></thead><tbody>", paste(linhas, collapse = ""),
+         "</tbody></table>")
+}
+
+## função que renderiza a tabela de frequências para variáveis categóricas em HTML, formatando cada linha da tabela com o código, rótulo, frequência absoluta e porcentagem correspondente a cada categoria, e utilizando as funções auxiliares para escapar caracteres especiais e formatar os números
+.tabela_freq_html <- function(freq) {
+  linhas <- vapply(seq_len(nrow(freq)), function(i) {
+    paste0("<tr><td class='cod'>", escapar_html(freq$Codigo[i]),
+           "</td><td>", escapar_html(freq$Rotulo[i]),
+           "</td><td class='num'>", freq$n[i],
+           "</td><td class='num'>", freq$pct[i], "</td></tr>")
+  }, character(1))
+  paste0("<table><thead><tr><th>Código</th><th>Rótulo</th>",
+         "<th class='num'>n</th><th class='num'>%</th></tr></thead><tbody>",
+         paste(linhas, collapse = ""), "</tbody></table>")
+}
+
+## função que renderiza o bloco HTML para cada variável, incluindo o nome da variável, o tipo, o selo de missing, a unidade (se disponível), e a tabela de estatísticas descritivas ou frequências dependendo do tipo da variável, utilizando as funções auxiliares para escapar caracteres especiais e formatar os números
+.bloco_variavel_html <- function(item) {
+  meta <- item$meta; r <- item$resumo
+  ancora <- paste0("v-", meta$nome)
+  badge_tipo <- paste0("<span class='badge b-", r$tipo, "'>",
+                       r$tipo, "</span>")
+  n_na <- if (!is.null(r$n_na)) r$n_na else 0
+  n_tot <- if (!is.null(r$n_total)) r$n_total else 1
+  badge_miss <- paste0("<span class='badge b-miss'>missing: ", n_na,
+                       " (", fmt_pct(100 * n_na / n_tot), ")</span>")
+  
+  unidade <- ""
+  if (!is.null(meta$unidade)) {
+    unidade <- paste0("<div class='vunit'>Unidade: ",
+                      escapar_html(meta$unidade), "</div>")
+  }
+  
+  corpo <- if (r$tipo == "continua") {
+    .tabela_continua_html(r$stats)
+  } else if (r$tipo == "categorica") {
+    .tabela_freq_html(r$freq)
+  } else {
+    paste0("<table><tbody><tr><td>Valores distintos</td>",
+           "<td class='num'>", r$n_distinct, "</td></tr></tbody></table>")
+  }
+  
+  ## o rótulo de exibição é o meta$rotulo, ou o meta$nome se o rotulo não estiver presente
+  rotulo <- if (!is.null(meta$rotulo)) meta$rotulo else meta$nome
+  paste0(
+    "<div class='var' id='", ancora, "'>",
+    "<div class='varhead'><span class='vname'>", escapar_html(meta$nome),
+    "</span>", badge_tipo, badge_miss, "</div>",
+    "<div class='vlabel'>", escapar_html(rotulo), "</div>",
+    unidade, corpo, "</div>"
+  )
+}
+
+## função principal que renderiza o databook completo em HTML, organizando o conteúdo de acordo com as seções definidas na estrutura do databook, e utilizando as funções auxiliares para escapar caracteres especiais, formatar os números, e renderizar as tabelas de estatísticas descritivas e frequências para cada variável
+databook_html <- function(db, arquivo = "output/databook.html",
+                          titulo = "Databook") {
+  m <- db$meta
+  
+  # TOC
+  toc_links <- vapply(db$secoes, function(s) {
+    paste0("<a href='#sec-", s$chave, "'>", escapar_html(s$titulo), "</a>")
+  }, character(1))
+  toc <- paste0("<nav class='toc'><h2>Conteúdo</h2>",
+                paste(toc_links, collapse = ""), "</nav>")
+  
+  # Seções
+  secoes_html <- vapply(db$secoes, function(s) {
+    vars <- paste(vapply(s$vars, .bloco_variavel_html, character(1)),
+                  collapse = "")
+    paste0("<section class='eixo' id='sec-", s$chave, "'><h2>",
+           escapar_html(s$titulo), "</h2>", vars, "</section>")
+  }, character(1))
+  
+  n_vars <- sum(vapply(db$secoes, function(s) length(s$vars), integer(1)))
+  seed_txt <- if (is.na(m$seed)) "—" else m$seed
+  
+  ## cabeçalho do databook, incluindo o título, descrição, metadados do dataset (nome, número de observações, número de variáveis, seed), e uma legenda explicativa sobre o cálculo das porcentagens para variáveis categóricas
+  cabecalho <- paste0(
+    "<header class='db'><h1>", escapar_html(titulo), "</h1>",
+    "<div class='sub'>", escapar_html(m$descricao), "</div>",
+    "<div class='meta-grid'>",
+    "<div>Dataset: <b>", escapar_html(m$dataset), "</b></div>",
+    "<div>Observações: <b>", m$n, "</b></div>",
+    "<div>Variáveis: <b>", n_vars, "</b></div>",
+    "<div>Seed: <b>", seed_txt, "</b></div>",
+    "<div>Gerado em: <b>", format(Sys.Date(), "%d/%m/%Y"), "</b></div>",
+    "</div>",
+    "<div class='legenda'>As porcentagens das variáveis categóricas são ",
+    "calculadas sobre os casos válidos (excluindo missings). O total de ",
+    "missing aparece no selo de cada variável.</div></header>"
+  )
+  
+  ## montagem do HTML completo, combinando o cabeçalho, a tabela de conteúdo (TOC), as seções com as variáveis e seus resumos, e um rodapé indicando que o databook é reprodutível e foi gerado por este script
+  html <- paste0(
+    "<!DOCTYPE html><html lang='pt-BR'><head><meta charset='utf-8'>",
+    "<meta name='viewport' content='width=device-width, initial-scale=1'>",
+    "<title>", escapar_html(titulo), "</title><style>", .css_databook,
+    "</style></head><body><div class='wrap'>",
+    cabecalho, toc, paste(secoes_html, collapse = ""),
+    "<footer>Databook reprodutível — gerado por 03_gera_databook.R</footer>",
+    "</div></body></html>"
+  )
+  
+  ## escreve o HTML em um arquivo, criando os diretórios necessários, e retorna invisivelmente o caminho do arquivo gerado
+  dir.create(dirname(arquivo), recursive = TRUE, showWarnings = FALSE)
+  con <- file(arquivo, open = "w", encoding = "UTF-8")
+  writeLines(html, con)
+  close(con)
+  invisible(arquivo)
+}
+```
+
+```{r}
+
+# ---- Execução (só quando rodado via Rscript, não via source) ----------------
+if (sys.nframe() == 0) { ## verifica se o script está sendo executado diretamente (via Rscript) ou se está sendo carregado (via source), e só executa o bloco de código para gerar o databook quando for executado diretamente, evitando que o código seja rodado acidentalmente ao carregar as funções
+  suppressPackageStartupMessages(library(jsonlite))
+  
+  # (A) MODO RICO — usa o JSON e a base codificada
+  dic <- fromJSON("dicionario/dicionario.json", simplifyVector = FALSE)
+  df_cod <- readRDS("data/simulado/coorte_codificada.rds")
+  db <- construir_databook(df_cod, dic)
+  databook_html(db, "output/databook.html",
+                titulo = "Databook — Coorte simulada (SLZ / PEL / RP)")
+  cat("✓ output/databook.html\n")
+  
+  # (B) MODO SIMPLÓRIO — direto no df rotulado, sem JSON
+  df_rot <- readRDS("data/simulado/coorte_rotulada.rds")
+  db2 <- construir_databook(df_rot)            # sem dic
+  databook_html(db2, "output/databook_simples.html",
+                titulo = "Databook (modo simples, sem dicionário)")
+  cat("✓ output/databook_simples.html\n")
+}
+
+```
+
+### GERA DATABOOK
+
+Ir no arquivo `04_databook.R` e rodar o script. :)
+
+
 
